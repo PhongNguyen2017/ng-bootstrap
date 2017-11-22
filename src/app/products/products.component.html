@@ -1,0 +1,101 @@
+
+<div class="container">
+    <div class="col-md-12">
+      <h1>Product List</h1>
+        <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">ID</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Description</th>
+          <th class="text-center">Price</th>
+          <th class="text-center">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price | currency:'USD':true:'1.0-2' }}</td>
+          <td>
+            <button class="btn btn-info" data-toggle="modal" data-target="#editModal"
+             (click)="showEditProductForm(product)">Edit</button>
+            <button class="btn btn-danger" (click)="removeProduct(product)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    
+    <!-- Phong edit -->
+    <button type="button" class="btn btn-success fa fa-plus bt-lg" 
+    data-toggle="modal" data-target="#productModal" (click)="showAddProductForm()"> New Product</button>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+        <h2 class="modal-title">Add New Product</h2>
+        </div>
+
+      
+
+        <div class="modal-body">
+            <form class="form-horizontal" *ngIf="productForm">
+                <p>ID: <input type="text" class="form-control" name="id" [(ngModel)]="newProduct.id" /></p>
+                <p>Name: <input type="text" class="form-control" name="name" [(ngModel)]="newProduct.name" /></p>
+                <p>Description: <input type="text" class="form-control" name="description" [(ngModel)]="newProduct.description" /></p>
+                <p>Price: <input type="text" class="form-control" name="price" [(ngModel)]="newProduct.price" /></p>
+               </form>
+        </div>
+      
+
+      <div class="modal-footer">
+          <p>
+              <button type="button" class="btn btn-primary" (click)="saveProduct(newProduct)">Submit</button>
+              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="cancelNewProduct()">Cancel</button>
+          </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+    
+    <br />
+    <br />
+    </div>
+<!-- Modal -->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Update Product Detail</h2>
+        </div>
+
+        <div class="modal-body">
+            <form class="form-horizontal" *ngIf="editProductForm">
+                <p>ID: <input type="text" class="form-control" name="id" [(ngModel)]="editedProduct.id" /></p>
+                <p>Name: <input type="text" class="form-control" name="name" [(ngModel)]="editedProduct.name" /></p>
+                <p>Description: <input type="text" class="form-control" name="description" [(ngModel)]="editedProduct.description" /></p>
+                <p>Price: <input type="text" class="form-control" name="price" [(ngModel)]="editedProduct.price" /></p>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <p>
+                <button type="button" class="btn btn-primary" (click)="updateProduct(editedProduct)">Submit</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="cancelEdits()">Cancel</button>
+              </p>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  </div>
